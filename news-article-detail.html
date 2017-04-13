@@ -1,0 +1,124 @@
+﻿
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+    <title>新闻详情</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="css/swiper.min.css" rel="stylesheet"> -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="header clearfix">
+          <a href="index.html" class="logo-top">hello</a>
+            <ul class="top-nav clearfix">
+                <li><a href="index.html">首页<b></b></a></li>
+                <li>
+                    <a href="ping-pai-js.html?title=1" data-nav>品牌介绍<b></b></a>
+                    <ul class="sub-nav">
+                        <li><a href="ping-pai-js.html?title=1">公司介绍</a></li>
+                        <li><a href="ping-pai-js.html?title=2">未来城系列</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="hlt-cdwlc.html?title=1" data-nav>黑龙滩长岛未来城<b></b></a>
+                    <ul class="sub-nav wide">
+                        <li><a href="hlt-cdwlc.html?title=1">项目规划</a></li>
+                        <li><a href="hlt-cdwlc.html?title=2">项目配套</a></li>
+                        <li><a href="hlt-cdwlc.html?title=3">位置交通</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="zhms.html?title=1" data-nav>竹海美墅<b></b></a>
+                    <ul class="sub-nav">
+                        <li><a href="zhms.html?title=1">产品规划</a></li>
+                        <li><a href="zhms.html?title=2">建筑风格</a></li>
+                        <li><a href="zhms.html?title=3">户型</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="activity.html?title=1" data-nav>项目活动<b></b></a>
+                    <ul class="sub-nav">
+                        <li><a href="activity.html?title=1" class="single-page-current">新闻</a></li>
+                        <li><a href="activity.html?title=2">互动活动</a></li>
+                        <li><a href="activity.html?title=3">社群活动</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="guang-ywl.html?title=1" data-nav>光影未来<b></b></a>
+                    <ul class="sub-nav">
+                        <!-- <li><a href="guang-ywl.html?title=1">视频</a></li>
+                <li><a href="guang-ywl.html?title=1">全景</a></li> -->
+                        <li><a href="guang-ywl.html?title=1">图册</a></li>
+                        <li><a href="guang-ywl.html?title=2">周边环境</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="sub-mask"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="page-banner" style="background-image:url(img/page-banner.jpg)"></div>
+    </div>
+    <div class="page-container clearfix">
+        <div class="side-nav">
+            <div class="title-block">
+                <h3>项目活动</h3>
+                <h4>PROJECT ACTIVITIES</h4>
+            </div>
+            <ul>
+                <li class="active" id="xw" ids="1" data-ht="GetNewsList" data-hn="HandlerActivity" data-ht-2="GetNewsCount"><a href="activity.html?title=1">新闻</a><b></b></li>
+                <li id="hdhd" ids="1" data-ht="GetActivityList" data-hn="HandlerActivity" data-ht-2="GetActivityCount"><a href="activity.html?title=2">互动活动</a><b></b></li>
+                <li id="sqhd" ids="2" data-ht="GetActivityList" data-hn="HandlerActivity" data-ht-2="GetActivityCount"><a href="activity.html?title=3">社群活动</a><b></b></li>
+            </ul>
+        </div>
+        <div class="content-wrap">
+            <div class="article-wrap">
+                <div class="hd">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="activity.html?title=1">新闻</a></li>
+                        <li class="active">新闻正文</li>
+                    </ol>
+                    <h5>新闻</h5>
+                </div>
+                <div class="bd">
+                    <h3 class="title" id="news-title"></h3>
+                    <p class="content" id="news-content"></p>
+                </div>
+                <!-- <div class="ft clearfix">
+
+					<a href="javascript:;" class="article-prev"><i class="fa fa-angle-double-left"></i> 前一篇</a>
+					<a href="javascript:;" class="article-next">后一篇 <i class="fa fa-angle-double-right"></i></a>
+					<a href="javascript:;" class="article-return"><i class="fa fa-bars"></i> 返回列表</a>
+				</div> -->
+            </div>
+
+        </div>
+    </div>
+
+    <div id="_footer"></div>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/velocity.min.js"></script>
+    <script src="js/news-artical-detail.js"></script>
+    <script src="js/common.js"></script>
+</body>
+
+</html>

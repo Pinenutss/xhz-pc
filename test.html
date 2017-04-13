@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/jquery.pagination.js"></script>
+    <script src="lib/AllPager.js"></script>
+    <script type="text/javascript">
+        var pagesize = 1; //页数
+        $(function () {
+            //首次加载
+            PageShow(0, pagesize);
+        });
+        //调用分页函数
+        function PageShow(pageindex, pagesize) {
+            GetData(pageindex, pagesize);
+            doDatePagerForControl(GetCount(), pagesize, function () { GetData(clickpage, pagesize); }, "pager");
+        }
+        //获取数据源
+        function GetData(pageindex, pagesize) {
+            var html = "";
+            var urlList = "/Handler/HandlerActivity.ashx?action=GetActivityList&typeId=1&pageSize=" + pagesize + "&pageindex=" + pageindex;
+            $.ajax({
+                url: urlList,
+                type: "post",
+                async: false,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Status == "0") {
+                        html += "<div>暂无数据！</div>";
+                    }
+                    else if (data.Status == "ex") {
+                        alert("系统异常！");
+                    }
+                    else {
+                        $(data).each(function (i, item) {
+                            html += "<div>数据" + (i + 1) + "：" + data[i]["ActivityName"] + "</div><br/>";
+                        });
+                    }
+                },
+                error: function () {
+                    alert("系统异常！");
+                }
+            });
+            $(".content").html(html);
+        }
+        //获取总条数
+        function GetCount() {
+            var num = 0;
+            var urlCount = "/Handler/HandlerActivity.ashx?action=GetActivityCount&typeId=1";
+            $.ajax({
+                url: urlCount,
+                type: "post",
+                async: false,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Status == "ex") {
+                        alert("系统异常！");
+                    }
+                    else {
+                        num = data.Count;
+                        $(".count").html("<br/>总条数：" + data.Count + "<br/><br/><br/>");
+                    }
+                },
+                error: function () {
+                    alert("系统异常！");
+                }
+            });
+            return num;
+        }
+    </script>
+    <style type="text/css">
+        /*分页*/
+        .pager { height: 20px; min-height: 20px; height: auto !important; }
+        div.pager { margin-bottom: 20px; text-align: center; }
+        div.pager a { font-family: 宋体; font-size: 12px; color: #989898; display: block; float: left; width: 33px; cursor: pointer; height: 33px; line-height: 33px; padding: 0px; display: inline-block; color: #666; border: 1px solid #dddddd; margin-right: 8px; text-decoration: none; }
+        div.pager a:hover { background-color: #f8cf95; color: #ffffff; }
+        div.pager a.disabled { width: 71px; border: 1px solid #dddddd; }
+        div.pager a.prev { background-repeat: no-repeat; background-position: -10px -12px; }
+        div.pager a.next { background-repeat: no-repeat; background-position: -377px -12px; }
+        div.pager span { font-family: 宋体; font-size: 12px; color: #989898; display: block; float: left; cursor: pointer; height: 33px; width: 33px; line-height: 33px; display: inline-block; border: 1px solid #dddddd; }
+        div.pager span.current { width: 33px; margin-right: 8px; padding: 0px; background-color: #f8cf95; color: #fff; border: 0px; }
+        div.pager span.disabled { width: 71px; margin-right: 8px; padding: 0px; }
+        div.pager span.prev { cursor: pointer; color: #989898; }
+        div.pager span.next { cursor: pointer; color: #989898; }
+    </style>
+</head>
+<body>
+    <div class="count"></div>
+    <div class="content"></div>
+    <div class="pager" id="pager"></div>
+    <div>上一个：<a id="btnLast" href=""></a></div>
+    <div>下一个：<a id="btnNext" href=""></a></div>
+    <div>数据</div>
+    <div id="swipwer"></div>
+</body>
+</html>
+<script type="text/javascript">
+    var typeId = getQueryString("typeId");
+    $(function () {
+        var urlList2 = "/Handler/HandlerProject.ashx?action=GetAlbumNextOrLast&typeId=" + typeId;
+        $.ajax({
+            url: urlList2,
+            type: "post",
+            async: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.Status == "0") {
+                    html += "<div>暂无数据！</div>";
+                }
+                else if (data.Status == "ex") {
+                    alert("系统异常！");
+                }
+                else {
+                    $(data).each(function (i, item) {
+                        if (item.LastAlbumTypeId != "") {
+                            $("#btnLast").text(item.LastAlbumTypeName).attr("href", "test.html?typeId=" + item.LastAlbumTypeId);
+                        }
+                        else {
+                            $("#btnLast").text("已经是第一篇了");
+                        }
+                        if (item.NextAlbumTypeId != "") {
+                            $("#btnNext").text(item.NextAlbumTypeName).attr("href", "test.html?typeId=" + item.NextAlbumTypeId);
+                        }
+                        else {
+                            $("#btnNext").text("已经是最后一篇了");
+                        }
+                    });
+                }
+            },
+            error: function () {
+                alert("系统异常！");
+            }
+        });
+    });
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+</script>
